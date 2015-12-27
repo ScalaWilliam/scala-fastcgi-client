@@ -23,6 +23,14 @@ If you want asynchronous, consider: https://github.com/leanovate/toehold
 Usage
 ==
 
+Add the following to your build.sbt:
+
+```scala
+resolvers += Resolver.bintrayRepo("scalawilliam", "maven")
+libraryDependencies += "com.scalawilliam" %% "scala-fastcgi-client" % "0.3"
+```
+
+
 Basic usage (src/test/com/scalawilliam/example/SampleApp.scala)
 
 ```scala
