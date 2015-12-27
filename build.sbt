@@ -5,6 +5,7 @@ lazy val fastcgi = (project in file("."))
     organization := "com.scalawilliam",
     name := "scala-fastcgi-client",
     scalaVersion := "2.11.7",
+    git.useGitDescribe := true,
     libraryDependencies ++= Seq(
       "net.sf.jfastcgi" % "jfastcgi" % "2.2",
       "org.scalatest" %% "scalatest" % "2.2.5" % "test",
