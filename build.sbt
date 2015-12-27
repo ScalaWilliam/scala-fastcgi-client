@@ -1,6 +1,7 @@
 lazy val fastcgi = (project in file("."))
   .enablePlugins(GitVersioning)
   .settings(
+    licenses +=("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html")),
     organization := "com.scalawilliam",
     name := "scala-fastcgi-client",
     scalaVersion := "2.11.7",
