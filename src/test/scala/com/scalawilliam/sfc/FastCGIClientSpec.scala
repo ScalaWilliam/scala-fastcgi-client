@@ -32,9 +32,26 @@ class FastCGIClientSpec
     response.output.value shouldBe "a=2&b=3"
   }
 
+  test("Raw POST request works") {
+    val response = SampleRequest.sampleRequest.copy(
+      servletPath = "/test2.php",
+      method = "POST",
+      headers = List("Content-Type" -> "text/plain"),
+      data = Option("Some stuff")
+    ).process()
+    response.output.value shouldBe "Some stuff"
+  }
+
   override protected def beforeAll(): Unit = {
     super.beforeAll()
-    fcgi = FastCGIHandlerConfig(FastCGIConnectionConfig.SingleConnection(address = "127.0.0.1:7776")).build
+    val address = "127.0.0.1:7776"
+    fcgi = FastCGIHandlerConfig(
+      connectionConfig = FastCGIConnectionConfig.SingleConnection(address = address),
+      startExecutable = Option(
+        if (scala.util.Properties.isWin) s"C:/php/php-cgi.exe -b ${address}"
+        else s"php -b ${address}"
+      )
+    ).build
   }
 
   override protected def afterAll(): Unit = {

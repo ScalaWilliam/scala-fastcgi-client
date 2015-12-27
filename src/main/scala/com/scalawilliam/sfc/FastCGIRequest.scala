@@ -25,9 +25,11 @@ case class FastCGIRequest(remoteUser: Option[String],
                           @BeanProperty method: String,
                           data: Option[String],
                           realPath: String => String
-                     ) extends RequestAdapter {
+                         ) extends RequestAdapter {
 
-  private val inputStream = new ByteArrayInputStream(data.getOrElse("").getBytes("UTF-8"))
+  val bytes = data.getOrElse("").getBytes("UTF-8")
+
+  private val inputStream = new ByteArrayInputStream(bytes)
 
   override def getHeaderNames: java.util.Enumeration[String] = headers.collect { case (key, _) => key }.toIterator.asJava
 
@@ -43,5 +45,6 @@ case class FastCGIRequest(remoteUser: Option[String],
 
   override def getQueryString: String = queryString.orNull
 
-  override def getContentLength: Int = data.map(_.length).getOrElse(0)
+  override def getContentLength: Int = bytes.length
+
 }
