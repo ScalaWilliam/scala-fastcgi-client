@@ -1,19 +1,24 @@
 scala-fastcgi-client
 =
+[![Build Status](https://travis-ci.org/ScalaWilliam/scala-fastcgi-client.svg)](https://travis-ci.org/ScalaWilliam/scala-fastcgi-client)
 
 A synchronous FastCGI client for Scala.
 
 Problem space
 ==
-Scala doesn't cut it when you need dynamicism and rapid iterations.
+Scala simply doesn't cut it when you want to generate HTML or get newbies to get anything done.
 Large projects in PHP are very difficult.
+
+We want minimalistic straightforward access to PHP's FastCGI interface so we can call PHP from Scala.
+Case class in, case class out = minimal solution to the problem.
 
 Synchronous, based on jFastCGI
 ==
-
-Don't be scared - even Slick JDBC is synchronous underneath.
-
 It is built on top of jFastCGI: https://github.com/jFastCGI/jfastcgi
+
+Don't be scared. Even Slick JDBC is synchronous underneath.
+
+If you want asynchronous, consider: https://github.com/leanovate/toehold
 
 Usage
 ==
