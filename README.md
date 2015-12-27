@@ -43,10 +43,26 @@ object SampleApp extends App {
       address = "127.0.0.1:7776"
     )
   ).build
-  // Input = FastCGIRequest(None,List(),None,None,,/test.php,/uri/,ScalaTest,HTTP/1.1,127.0.0.1,1234,GET,None,<function1>)
-  println(SampleRequest.sampleRequest)
+  val sampleRequest = FastCGIRequest(
+    remoteUser = None,
+    headers = List.empty,
+    authType = Option.empty,
+    queryString = None,
+    contextPath = "",
+    servletPath = "/test.php",
+    requestURI = "/uri/",
+    serverName = "ScalaTest",
+    protocol = "HTTP/1.1",
+    remoteAddr = "127.0.0.1",
+    serverPort = 1234,
+    method = "GET",
+    data = None,
+    realPath = something => {
+      scala.util.Properties.userDir + "/src/test/resources/root" + something
+    }
+  )
   // Output = FastCGIResponse(None,None,List((X-Powered-By,PHP/7.0.0), (X-Test,Test), (Content-type,text/html; charset=UTF-8)),None,Some(Received))
-  try println(SampleRequest.sampleRequest.process())
+  try println(sampleRequest.process())
   finally fcgi.destroy()
 }
 ```
